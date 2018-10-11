@@ -5,7 +5,11 @@ This project came out of pure [frustration](https://stackoverflow.com/questions/
 
 # TODO
 
-Maybe i will make it a standalone JavaFX application ... for now the below works :)
+1) Repair on the fly
+2) Detect on the fly
+
+3) Maybe i will make it a standalone JavaFX application ... for now the below works :)
+
 
 # Some code for now
 
