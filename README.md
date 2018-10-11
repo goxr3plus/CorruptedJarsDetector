@@ -17,7 +17,7 @@ import java.util.stream.*;
 public class JarValidator {
 
     public static void main(String[] args) throws IOException {
-        Path repositoryPath = Path.of("C:\\Users\\johndoe\\.m2");
+        Path repositoryPath = Paths.get("C:\\Users\\goxr3plus\\.m2");
 
         if (Files.exists(repositoryPath)) {
             JarValidator jv = new JarValidator();
@@ -60,9 +60,9 @@ public class JarValidator {
 
 ``` JAVA
 run:
-Repository to process: C:\Users\johndoe\.m2
+Repository to process: C:\Users\goxr3plus\.m2
 Number of jars to process: 4920
-C:\Users\johndoe\.m2\repository\bouncycastle\isoparser-1.1.18.jar threw exception: java.util.zip.ZipException: zip END header not found
+C:\Users\goxr3plus\.m2\repository\bouncycastle\isoparser-1.1.18.jar threw exception: java.util.zip.ZipException: zip END header not found
 Total bad jars = 1
 BUILD SUCCESSFUL (total time: 2 seconds)
 
