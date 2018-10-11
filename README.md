@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class JarValidator {
 
 	public static void main(String[] args) throws IOException {
-		Path repositoryPath = Paths.get("C:\\Users\\akentros\\.m2");
+		Path repositoryPath = Paths.get("C:\\Users\\goxr3plus\\.m2");
 
 		// Check if the main Repository Exists
 		if (Files.exists(repositoryPath)) {
