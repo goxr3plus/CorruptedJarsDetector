@@ -22,38 +22,61 @@ import java.util.stream.Collectors;
 public class JarValidator {
 
 	public static void main(String[] args) throws IOException {
-		String absolutePath = "C:\\Users\\akentros\\.m2";
-		Path repositoryPath = Paths.get(absolutePath);
+		Path repositoryPath = Paths.get("C:\\Users\\akentros\\.m2");
 
+		// Check if the main Repository Exists
 		if (Files.exists(repositoryPath)) {
+
+			// Create a class instance
 			JarValidator jv = new JarValidator();
+
 			List<String> jarReport = new ArrayList<>();
 			jarReport.add("Repository to process: " + repositoryPath.toString());
+
+			// Get all the directory files
 			List<Path> jarFiles = jv.getFiles(repositoryPath, ".jar");
 			jarReport.add("Number of jars to process: " + jarFiles.size());
-			jarReport.addAll(jv.openJars(jarFiles));
+			jarReport.addAll(jv.openJars(jarFiles, true));
+
+			// Print the report
 			jarReport.stream().forEach(System.out::println);
+
 		} else {
 			System.out.println("Repository path " + repositoryPath + " does not exist.");
 		}
 	}
 
+	/**
+	 * Get all the files from the given directory matching the specified extension
+	 * 
+	 * @param filePath      Absolute File Path
+	 * @param fileExtension File extension
+	 * @return A list of all the files contained in the directory
+	 * @throws IOException
+	 */
 	private List<Path> getFiles(Path filePath, String fileExtension) throws IOException {
 		return Files.walk(filePath).filter(p -> p.toString().endsWith(fileExtension)).collect(Collectors.toList());
 	}
 
-	private List<String> openJars(List<Path> jarFiles) {
+	/**
+	 * Try to open all the jar files
+	 * 
+	 * @param jarFiles
+	 * @return A List of Messages for Corrupted Jars
+	 */
+	private List<String> openJars(List<Path> jarFiles, boolean showOkayJars) {
 		int[] badJars = { 0 };
 		List<String> messages = new ArrayList<>();
 
+		// For Each Jar
 		jarFiles.forEach(path -> {
 
 			try (JarFile file = new JarFile(path.toFile())) {
-				System.out.println("OK : " + path.toString());
+				if (showOkayJars)
+					messages.add("OK : " + path.toString());
 			} catch (IOException ex) {
 				messages.add(path.toAbsolutePath() + " threw exception: " + ex.toString());
 				badJars[0]++;
-				System.out.println("Corrupted : " + path.toString());
 			}
 		});
 
